@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revert Muslims Guide - Learn Islam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Add Leaflet for prayer times map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        .salah-step {
+            transition: all 0.3s ease;
+        }
+        .salah-step.active {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .arabic-text {
+            font-family: 'Traditional Arabic', Arial, sans-serif;
+            font-size: 1.5rem;
+            line-height: 2.5rem;
+        }
+        .prayer-time.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .quran-page {
+            min-height: 500px;
+        }
+        #map {
+            height: 300px;
+            width: 100%;
+        }
+        /* Fix for YouTube iframe */
+        .aspect-w-16 {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        .aspect-h-9 iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Header -->
+    <header class="bg-green-800 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-3xl font-bold">Revert Muslims Guide</h1>
+                    <p class="text-green-200">Your comprehensive guide to learning Islam</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" class="p-2 rounded-full bg-green-700 hover:bg-green-600">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <div id="current-time" class="bg-green-700 px-3 py-1 rounded-lg"></div>
+                </div>
+            </div>
+            <nav class="mt-6">
+                <ul class="flex flex-wrap gap-4">
+                    <li><a href="#home" class="px-4 py-2 bg-green-700 rounded-lg hover:bg-green-600 transition">Home</a></li>
+                    <li><a href="#salah" class="px-4 py-2 hover:bg-green-700 rounded-lg transition">Learn Salah</a></li>
+                    <li><a href="#during-salah" class="px-4 py-2 hover:bg-green-700 rounded-lg transition">During Salah</a></li>
+                    <li><a href="#prayer-times" class="px-4 py-2 hover:bg-green-700 rounded-lg transition">Prayer Times</a></li>
+                    <li><a href="#quran" class="px-4 py-2 hover:bg-green-700 rounded-lg transition">Quran</a></li>
+                    <li><a href="#hadith-verse" class="px-4 py-2 hover:bg-green-700 rounded-lg transition">Daily Wisdom</a></li>
+                    <li><a href="#contact" class="px-4 py-2 hover:bg-green-700 rounded-lg transition">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Home Section -->
+        <section id="home" class="mb-16">
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="md:flex">
+                    <div class="md:w-1/2 p-8">
+                        <h2 class="text-3xl font-bold text-green-800 mb-4">Welcome to Islam</h2>
+                        <p class="text-gray-700 mb-6">As a revert Muslim, you've taken the most important step in your life. This guide will help you learn the fundamentals of Islam, especially how to perform Salah (prayer) correctly.</p>
+                        <p class="text-gray-700 mb-6">Islam is a complete way of life that brings peace and purpose. The five pillars of Islam are the foundation of Muslim life:</p>
+                        <ol class="list-decimal list-inside space-y-2 text-gray-700 mb-6">
+                            <li>Shahadah (Declaration of Faith)</li>
+                            <li>Salah (Prayer)</li>
+                            <li>Zakat (Charity)</li>
+                            <li>Sawm (Fasting in Ramadan)</li>
+                            <li>Hajj (Pilgrimage to Mecca)</li>
+                        </ol>
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <h3 class="font-bold text-blue-800 mb-2">Today's Reminder</h3>
+                            <p class="text-blue-700">"The most beloved deed to Allah is the most regular and constant even if it were little." (Sahih al-Bukhari)</p>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 bg-green-100 flex items-center justify-center p-8">
+                        <img src="https://images.unsplash.com/photo-1561768039-5a020159b1b8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" 
+                             alt="Mosque" class="rounded-lg shadow-md w-full h-auto max-h-96 object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learn Salah Section -->
+        <section id="salah" class="mb-16">
+            <h2 class="text-3xl font-bold text-green-800 mb-6 border-b-2 border-green-200 pb-2">Learn How to Perform Salah</h2>
+            
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+                <div class="p-6">
+                    <h3 class="text-2xl font-semibold text-green-700 mb-4">The Importance of Salah</h3>
+                    <p class="text-gray-700 mb-4">Salah is the second pillar of Islam and the most important act of worship after the Shahadah. It is a direct link between the worshipper and Allah.</p>
+                    <p class="text-gray-700 mb-4">The Prophet Muhammad (PBUH) said: <span class="italic">"The first matter that the slave will be brought to account for on the Day of Judgment is the prayer. If it is sound, then the rest of his deeds will be sound. And if it is bad, then the rest of his deeds will be bad."</span> (Tabarani)</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Steps of Salah -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-green-700 text-white p-4">
+                        <h3 class="text-xl font-semibold">Steps of Salah</h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-6">
+                            <div class="salah-step p-4 border border-gray-200 rounded-lg">
+                                <h4 class="font-bold text-green-700 mb-2">1. Make Wudu (Ablution)</h4>
+                                <p class="text-gray-700">Perform the ritual washing before prayer as taught by the Prophet (PBUH).</p>
+                            </div>
+                            <div class="salah-step p-4 border border-gray-200 rounded-lg">
+                                <h4 class="font-bold text-green-700 mb-2">2. Face the Qibla</h4>
+                                <p class="text-gray-700">Stand facing the direction of the Kaaba in Mecca.</p>
+                            </div>
+                            <div class="salah-step p-4 border border-gray-200 rounded-lg">
+                                <h4 class="font-bold text-green-700 mb-2">3. Make Intention (Niyyah)</h4>
+                                <p class="text-gray-700">Silently intend in your heart which prayer you're performing.</p>
+                            </div>
+                            <div class="salah-step p-4 border border-gray-200 rounded-lg">
+                                <h4 class="font-bold text-green-700 mb-2">4. Takbiratul Ihram</h4>
+                                <p class="text-gray-700">Raise your hands and say "Allahu Akbar" (Allah is the Greatest) to begin the prayer.</p>
+                            </div>
+                            <div class="salah-step p-4 border border-gray-200 rounded-lg">
+                                <h4 class="font-bold text-green-700 mb-2">5. Recite Surah Al-Fatiha</h4>
+                                <p class="text-gray-700">Recite the opening chapter of the Quran in each rak'ah.</p>
+                            </div>
+                            <div class="salah-step p-4 border border-gray-200 rounded-lg">
+                                <h4 class="font-bold text-green-700 mb-2">6. Ruku (Bowing)</h4>
+                                <p class="text-gray-700">Bow while saying "Subhana Rabbiyal Adheem" (Glory to my Lord the Great).</p>
+                            </div>
+                            <div class="salah-step p-4 border border-gray-200 rounded-lg">
+                                <h4 class="font-bold text-green-700 mb-2">7. Sujud (Prostration)</h4>
+                                <p class="text-gray-700">Prostrate while saying "Subhana Rabbiyal A'la" (Glory to my Lord the Most High).</p>
+                            </div>
+                            <div class="salah-step p-4 border border-gray-200 rounded-lg">
+                                <h4 class="font-bold text-green-700 mb-2">8. Tashahhud</h4>
+                                <p class="text-gray-700">Sit and recite the testimony of faith and send blessings on the Prophet (PBUH).</p>
+                            </div>
+                            <div class="salah-step p-4 border border-gray-200 rounded-lg">
+                                <h4 class="font-bold text-green-700 mb-2">9. Salam</h4>
+                                <p class="text-gray-700">Turn your head right and left saying "Assalamu alaikum wa rahmatullah" to end the prayer.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Tutorial -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-green-700 text-white p-4">
+                        <h3 class="text-xl font-semibold">Video Tutorial</h3>
+                    </div>
+                    <div class="p-4">
+                        <div class="aspect-w-16 aspect-h-9">
+                            <iframe class="w-full h-96 rounded-lg" src="https://www.youtube.com/embed/6KGqkGZbSF0" title="How to pray in Islam" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <div class="mt-4">
+                            <h4 class="font-bold text-lg mb-2 text-green-700">Additional Resources</h4>
+                            <ul class="space-y-2">
+                                <li><a href="#" class="text-blue-600 hover:underline">Printable Salah Guide (PDF)</a></li>
+                                <li><a href="#" class="text-blue-600 hover:underline">Common Mistakes in Salah</a></li>
+                                <li><a href="#" class="text-blue-600 hover:underline">Sunnah Acts of Prayer</a></li>
+                                <li><a href="#" class="text-blue-600 hover:underline">Dua After Salah</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- During Salah Section -->
+        <section id="during-salah" class="mb-16">
+            <h2 class="text-3xl font-bold text-green-800 mb-6 border-b-2 border-green-200 pb-2">During Salah Guide</h2>
+            
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+                <div class="p-6">
+                    <p class="text-gray-700 mb-4">This interactive guide will help you during your Salah. Keep your screen on while praying to follow along with each step.</p>
+                    <div class="flex justify-center mb-6">
+                        <button id="start-salah" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold shadow-md transition">
+                            Start Salah Guide
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="salah-guide-container" class="hidden">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 id="current-step-title" class="text-2xl font-semibold text-green-700">Takbiratul Ihram</h3>
+                            <div class="flex space-x-2">
+                                <button id="prev-step" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded-lg transition">
+                                    <i class="fas fa-arrow-left"></i>
+                                </button>
+                                <button id="next-step" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-lg transition">
+                                    <i class="fas fa-arrow-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="current-step-content" class="mb-6">
+                            <div class="arabic-text text-center mb-4 text-3xl font-bold" dir="rtl">
+                                الله أكبر
+                            </div>
+                            <p class="text-center text-xl mb-4">Allahu Akbar</p>
+                            <p class="text-gray-700 mb-4">Raise your hands up to your ears or shoulders and say "Allahu Akbar" (Allah is the Greatest) to begin your prayer.</p>
+                            <div class="bg-gray-100 p-4 rounded-lg">
+                                <p class="text-gray-700 italic">"When the Prophet (PBUH) started the prayer, he used to say 'Allahu Akbar' and then raise his hands." (Sahih Bukhari)</p>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center">
+                            <div class="w-full max-w-md bg-gray-200 rounded-full h-4">
+                                <div id="salah-progress" class="bg-green-600 h-4 rounded-full" style="width: 10%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-4 mb-8">
+                    <button data-step="takbir" class="salah-step-btn bg-green-100 hover:bg-green-200 text-green-800 px-4 py-2 rounded-lg transition">Takbir</button>
+                    <button data-step="fatiha" class="salah-step-btn bg-green-100 hover:bg-green-200 text-green-800 px-4 py-2 rounded-lg transition">Al-Fatiha</button>
+                    <button data-step="ruku" class="salah-step-btn bg-green-100 hover:bg-green-200 text-green-800 px-4 py-2 rounded-lg transition">Ruku</button>
+                    <button data-step="sujud" class="salah-step-btn bg-green-100 hover:bg-green-200 text-green-800 px-4 py-2 rounded-lg transition">Sujud</button>
+                    <button data-step="tashahhud" class="salah-step-btn bg-green-100 hover:bg-green-200 text-green-800 px-4 py-2 rounded-lg transition">Tashahhud</button>
+                    <button data-step="salam" class="salah-step-btn bg-green-100 hover:bg-green-200 text-green-800 px-4 py-2 rounded-lg transition">Salam</button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="bg-green-700 text-white p-4">
+                    <h3 class="text-xl font-semibold">What to Recite During Salah</h3>
+                </div>
+                <div class="p-6">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Position</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Arabic</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Transliteration</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Translation</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">Opening Takbir</td>
+                                    <td class="px-6 py-4 arabic-text" dir="rtl">الله أكبر</td>
+                                    <td class="px-6 py-4">Allahu Akbar</td>
+                                    <td class="px-6 py-4">Allah is the Greatest</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap">Sana (Opening Dua)</td>
+                                    <td class="px-6 py-4 arabic-text" dir="rtl">سبحانك اللهم وبحمدك وتبارك اسمك وتعالى جدك ولا إله غيرك</td>
+                                    <td class="px-6 py-4">Subhanaka Allahumma wa bihamdika, wa tabarakasmuka, wa ta'ala jadduka, wa la ilaha ghairuk</td>
+                                    <td class="px-6 py-4">Glory to You, O Allah, and praise. Blessed is Your name and exalted is Your majesty. There is no god but You.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">Ruku</td>
+                                    <td class="px-6 py-4 arabic-text" dir="rtl">سبحان ربي العظيم</td>
+                                    <td class="px-6 py-4">Subhana Rabbiyal Adheem</td>
+                                    <td class="px-6 py-4">Glory to my Lord the Great</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap">Sujud</td>
+                                    <td class="px-6 py-4 arabic-text" dir="rtl">سبحان ربي الأعلى</td>
+                                    <td class="px-6 py-4">Subhana Rabbiyal A'la</td>
+                                    <td class="px-6 py-4">Glory to my Lord the Most High</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">Tashahhud</td>
+                                    <td class="px-6 py-4 arabic-text" dir="rtl">التحيات لله والصلوات والطيبات، السلام عليك أيها النبي ورحمة الله وبركاته، السلام علينا وعلى عباد الله الصالحين، أشهد أن لا إله إلا الله وأشهد أن محمدا عبده ورسوله</td>
+                                    <td class="px-6 py-4">At-tahiyyatu lillahi was-salawatu wat-tayyibat. As-salamu 'alaika ayyuhan-Nabiyyu wa rahmatullahi wa barakatuh. As-salamu 'alaina wa 'ala 'ibadillahis-salihin. Ash-hadu an la ilaha illallah wa ash-hadu anna Muhammadan 'abduhu wa rasuluh</td>
+                                    <td class="px-6 py-4">All compliments, prayers and pure words are due to Allah. Peace be upon you, O Prophet, and the mercy of Allah and His blessings. Peace be upon us and upon the righteous slaves of Allah. I bear witness that there is no god but Allah and I bear witness that Muhammad is His slave and Messenger.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prayer Times Section -->
+        <section id="prayer-times" class="mb-16">
+            <h2 class="text-3xl font-bold text-green-800 mb-6 border-b-2 border-green-200 pb-2">Prayer Times</h2>
+            
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+                <div class="p-6">
+                    <div class="flex flex-wrap items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-xl font-semibold text-green-700">Today's Prayer Times</h3>
+                            <p id="location-display" class="text-gray-600">Detecting your location...</p>
+                        </div>
+                        <div>
+                            <button id="refresh-times" class="bg-green-100 hover:bg-green-200 text-green-800 px-4 py-2 rounded-lg transition flex items-center">
+                                <i class="fas fa-sync-alt mr-2"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-5 gap-4 mb-6">
+                        <div class="prayer-time p-4 rounded-lg text-center border border-gray-200">
+                            <div class="font-bold text-gray-700 mb-1">Fajr</div>
+                            <div class="text-2xl font-semibold" id="fajr-time">--:--</div>
+                            <div class="text-sm text-gray-500 mt-1">Dawn</div>
+                        </div>
+                        <div class="prayer-time p-4 rounded-lg text-center border border-gray-200">
+                            <div class="font-bold text-gray-700 mb-1">Sunrise</div>
+                            <div class="text-2xl font-semibold" id="sunrise-time">--:--</div>
+                            <div class="text-sm text-gray-500 mt-1">Shuruq</div>
+                        </div>
+                        <div class="prayer-time p-4 rounded-lg text-center border border-gray-200">
+                            <div class="font-bold text-gray-700 mb-1">Dhuhr</div>
+                            <div class="text-2xl font-semibold" id="dhuhr-time">--:--</div>
+                            <div class="text-sm text-gray-500 mt-1">Noon</div>
+                        </div>
+                        <div class="prayer-time p-4 rounded-lg text-center border border-gray-200">
+                            <div class="font-bold text-gray-700 mb-1">Asr</div>
+                            <div class="text-2xl font-semibold" id="asr-time">--:--</div>
+                            <div class="text-sm text-gray-500 mt-1">Afternoon</div>
+                        </div>
+                        <div class="prayer-time p-4 rounded-lg text-center border border-gray-200">
+                            <div class="font-bold text-gray-700 mb-1">Maghrib</div>
+                            <div class="text-2xl font-semibold" id="maghrib-time">--:--</div>
+                            <div class="text-sm text-gray-500 mt-1">Sunset</div>
+                        </div>
+                        <div class="prayer-time p-4 rounded-lg text-center border border-gray-200">
+                            <div class="font-bold text-gray-700 mb-1">Isha</div>
+                            <div class="text-2xl font-semibold" id="isha-time">--:--</div>
+                            <div class="text-sm text-gray-500 mt-1">Night</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <h4 class="font-bold text-blue-800 mb-2">Next Prayer</h4>
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span id="next-prayer-name" class="font-semibold">--</span>
+                                <span id="next-prayer-time" class="ml-2">--:--</span>
+                            </div>
+                            <div>
+                                <span id="time-remaining" class="font-semibold text-blue-700">--</span>
+                                <span> remaining</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Prayer Times Calendar -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-green-700 text-white p-4">
+                        <h3 class="text-xl font-semibold">Monthly Prayer Times</h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <button id="prev-month" class="text-gray-600 hover:text-green-700">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <h4 id="current-month" class="font-semibold text-lg">June 2023</h4>
+                            <button id="next-month" class="text-gray-600 hover:text-green-700">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full">
+                                <thead>
+                                    <tr class="text-gray-600 text-sm border-b">
+                                        <th class="text-left py-2">Date</th>
+                                        <th class="text-left py-2">Fajr</th>
+                                        <th class="text-left py-2">Dhuhr</th>
+                                        <th class="text-left py-2">Asr</th>
+                                        <th class="text-left py-2">Maghrib</th>
+                                        <th class="text-left py-2">Isha</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="prayer-calendar">
+                                    <!-- Will be populated by JavaScript -->
+                                    <tr><td colspan="6" class="py-4 text-center text-gray-500">Loading prayer times...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Qibla Finder -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-green-700 text-white p-4">
+                        <h3 class="text-xl font-semibold">Qibla Finder</h3>
+                    </div>
+                    <div class="p-6">
+                        <div id="map"></div>
+                        <div class="mt-4">
+                            <p class="text-gray-700 mb-4">Find the direction of the Qibla (Kaaba in Mecca) from your current location.</p>
+                            <button id="find-qibla" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition flex items-center">
+                                <i class="fas fa-compass mr-2"></i> Find Qibla Direction
+                            </button>
+                            <div id="qibla-direction" class="mt-4 hidden">
+                                <div class="flex items-center">
+                                    <div class="w-16 h-16 flex items-center justify-center bg-green-100 rounded-full mr-4">
+                                        <i class="fas fa-kaaba text-2xl text-green-700"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold">Qibla Direction: <span id="qibla-angle">0</span>°</p>
+                                        <p class="text-sm text-gray-600">From your current location</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quran Section -->
+        <section id="quran" class="mb-16">
+            <h2 class="text-3xl font-bold text-green-800 mb-6 border-b-2 border-green-200 pb-2">The Holy Quran</h2>
+            
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+                <div class="p-6">
+                    <div class="flex flex-wrap items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-xl font-semibold text-green-700">Read the Quran</h3>
+                            <p class="text-gray-600">The divine revelation sent to Prophet Muhammad (PBUH) over 23 years.</p>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="relative">
+                                <select id="surah-selector" class="appearance-none bg-gray-100 border border-gray-300 rounded-lg pl-4 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                                    <option value="1">Surah Al-Fatiha</option>
+                                    <option value="2">Surah Al-Baqarah</option>
+                                    <option value="36">Surah Ya-Sin</option>
+                                    <option value="67">Surah Al-Mulk</option>
+                                    <option value="112">Surah Al-Ikhlas</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <button id="random-ayah" class="bg-green-100 hover:bg-green-200 text-green-800 px-4 py-2 rounded-lg transition flex items-center">
+                                <i class="fas fa-random mr-2"></i> Random Ayah
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="quran-page bg-gray-50 p-6 rounded-lg border border-gray-200 mb-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h4 id="surah-name" class="text-2xl font-bold text-green-800">Surah Al-Fatiha</h4>
+                            <div id="surah-info" class="text-gray-600">Makkah • 7 verses</div>
+                        </div>
+                        
+                        <div id="quran-text" class="arabic-text text-center mb-6 leading-loose" dir="rtl">
+                            بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ﴿١﴾ ٱلْحَمْدُ لِلَّهِ رَبِّ ٱلْعَٰلَمِينَ ﴿٢﴾ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ﴿٣﴾ مَٰلِكِ يَوْمِ ٱلدِّينِ ﴿٤﴾ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ﴿٥﴾ ٱهْدِنَا ٱلصِّرَٰطَ ٱلْمُسْتَقِيمَ ﴿٦﴾ صِرَٰطَ ٱلَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ ٱلْمَغْضُوبِ عَلَيْهِمْ وَلَا ٱلضَّآلِّينَ ﴿٧﴾
+                        </div>
+                        
+                        <div id="translation-text" class="text-gray-700 mb-6">
+                            <p class="font-semibold mb-2">Translation:</p>
+                            <p>1. In the name of Allah, the Entirely Merciful, the Especially Merciful.</p>
+                            <p>2. [All] praise is [due] to Allah, Lord of the worlds.</p>
+                            <p>3. The Entirely Merciful, the Especially Merciful.</p>
+                            <p>4. Sovereign of the Day of Recompense.</p>
+                            <p>5. It is You we worship and You we ask for help.</p>
+                            <p>6. Guide us to the straight path.</p>
+                            <p>7. The path of those upon whom You have bestowed favor, not of those who have evoked [Your] anger or of those who are astray.</p>
+                        </div>
+                        
+                        <div class="flex justify-between items-center text-sm text-gray-500">
+                            <div>Juz 1</div>
+                            <div>Surah 1</div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center space-x-4">
+                        <button id="prev-ayah" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg transition">
+                            <i class="fas fa-arrow-left mr-2"></i> Previous
+                        </button>
+                        <button id="next-ayah" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition">
+                            Next <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Quran Recitation -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-green-700 text-white p-4">
+                        <h3 class="text-xl font-semibold">Listen to Quran Recitation</h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <div class="relative flex-grow">
+                                <select id="reciter-selector" class="appearance-none w-full bg-gray-100 border border-gray-300 rounded-lg pl-4 pr-8 py-2 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                    <option value="AbdulBaset">Abdul Basit</option>
+                                    <option value="MisharyRashid">Mishary Rashid</option>
+                                    <option value="SaoodShuraim">Sa'ood Shuraim</option>
+                                    <option value="MaherAlMuaiqly">Maher Al Muaiqly</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                            </div>
+                            <button id="play-recitation" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition flex items-center">
+                                <i class="fas fa-play mr-2"></i> Play
+                            </button>
+                        </div>
+                        
+                        <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <div id="now-playing" class="font-medium">Now Playing: Surah Al-Fatiha</div>
+                                <div id="reciter-name" class="text-sm text-gray-600">Abdul Basit</div>
+                            </div>
+                            <audio id="quran-audio" controls class="w-full"></audio>
+                        </div>
+                        
+                        <div class="text-sm text-gray-600">
+                            <p>Listening to Quran recitation brings tranquility to the heart. The Prophet (PBUH) said: <span class="italic">"The best among you are those who learn the Quran and teach it."</span> (Bukhari)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Learn Tajweed -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-green-700 text-white p-4">
+                        <h3 class="text-xl font-semibold">Learn Tajweed (Proper Recitation)</h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="mb-4">
+                            <h4 class="font-bold text-lg mb-2 text-green-700">Basic Tajweed Rules</h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                    <span><strong>Makharij:</strong> Correct pronunciation points of Arabic letters</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                    <span><strong>Ghunnah:</strong> Nasal sound in Noon and Meem with shaddah</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                    <span><strong>Qalqalah:</strong> Echo sound on certain letters when saakin</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                    <span><strong>Idgham:</strong> Merging of certain letters</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                    <span><strong>Ikhfa:</strong> Hiding certain letters with ghunnah</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <h4 class="font-bold text-blue-800 mb-2">Practice These Examples</h4>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="arabic-text text-center p-2 bg-white rounded" dir="rtl">قُلْ هُوَ ٱللَّهُ أَحَدٌ</div>
+                                <div class="p-2">Qul huwa Allahu ahad (Ikhfa)</div>
+                                <div class="arabic-text text-center p-2 bg-white rounded" dir="rtl">مِن رَّبِّهِمْ</div>
+                                <div class="p-2">Min rabbihim (Idgham)</div>
+                                <div class="arabic-text text-center p-2 bg-white rounded" dir="rtl">أَنَّا۠ أَعْطَیۡنَـٰكَ</div>
+                                <div class="p-2">Anna a'taynaaka (Ghunnah)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Daily Hadith & Verse Section -->
+        <section id="hadith-verse" class="mb-16">
+            <h2 class="text-3xl font-bold text-green-800 mb-6 border-b-2 border-green-200 pb-2">Daily Wisdom</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Daily Hadith -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-green-700 text-white p-4">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-xl font-semibold">Hadith of the Day</h3>
+                            <div class="text-sm bg-green-800 px-2 py-1 rounded">Sahih Bukhari</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div id="daily-hadith" class="mb-6">
+                            <div class="arabic-text text-center mb-6 leading-loose" dir="rtl">
+                                قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم: " إِنَّ اللَّهَ لاَ يَنْظُرُ إِلَى صُوَرِكُمْ وَأَمْوَالِكُمْ، وَلَكِنْ يَنْظُرُ إِلَى قُلُوبِكُمْ وَأَعْمَالِكُمْ "
+                            </div>
+                            <div class="text-gray-700">
+                                <p>The Messenger of Allah (PBUH) said: <span class="italic">"Allah does not look at your appearance or wealth, but rather He looks at your hearts and actions."</span></p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center text-sm text-gray-500">
+                            <div>Hadith #1234</div>
+                            <button id="new-hadith" class="text-green-600 hover:text-green-700 flex items-center">
+                                <i class="fas fa-sync-alt mr-2"></i> New Hadith
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Verse of the Day -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="bg-green-700 text-white p-4">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-xl font-semibold">Verse of the Day</h3>
+                            <div class="text-sm bg-green-800 px-2 py-1 rounded">Surah Al-Baqarah 2:286</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div id="daily-verse" class="mb-6">
+                            <div class="arabic-text text-center mb-6 leading-loose" dir="rtl">
+                                لَا يُكَلِّفُ ٱللَّهُ نَفْسًا إِلَّا وُسْعَهَا ۚ لَهَا مَا كَسَبَتْ وَعَلَيْهَا مَا ٱكْتَسَبَتْ ۗ رَبَّنَا لَا تُؤَاخِذْنَاۤ إِن نَّسِينَاۤ أَوْ أَخْطَأْنَا ۚ رَبَّنَا وَلَا تَحْمِلْ عَلَيْنَاۤ إِصْرࣰا كَمَا حَمَلْتَهُۥ عَلَى ٱلَّذِينَ مِن قَبْلِنَا ۚ رَبَّنَا وَلَا تُحَمِّلْنَا مَا لَا طَاقَةَ لَنَا بِهِۦ ۖ وَٱعْفُ عَنَّا وَٱغْفِرْ لَنَا وَٱرْحَمْنَا ۚ أَنتَ مَوْلَىٰنَا فَٱنصُرْنَا عَلَى ٱلْقَوْمِ ٱلْكَٰفِرِينَ
+                            </div>
+                            <div class="text-gray-700">
+                                <p>Allah does not charge a soul except [with that within] its capacity. It will have [the consequence of] what [good] it has gained, and it will bear [the consequence of] what [evil] it has earned. "Our Lord, do not impose blame upon us if we have forgotten or erred. Our Lord, and lay not upon us a burden like that which You laid upon those before us. Our Lord, and burden us not with that which we have no ability to bear. And pardon us; and forgive us; and have mercy upon us. You are our protector, so give us victory over the disbelieving people."</p>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center text-sm text-gray-500">
+                            <div>Juz 3</div>
+                            <button id="new-verse" class="text-green-600 hover:text-green-700 flex items-center">
+                                <i class="fas fa-sync-alt mr-2"></i> New Verse
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden mt-8">
+                <div class="bg-green-700 text-white p-4">
+                    <h3 class="text-xl font-semibold">Islamic Knowledge Base</h3>
+                </div>
+                <div class="p-6">
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                            <div class="flex items-center mb-3">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-700 mr-3">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <h4 class="font-semibold">Articles</h4>
+                            </div>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li><a href="#" class="hover:text-green-700 hover:underline">How to Perform Wudu</a></li>
+                                <li><a href="#" class="hover:text-green-700 hover:underline">The Five Pillars Explained</a></li>
+                                <li><a href="#" class="hover:text-green-700 hover:underline">Understanding Tawheed</a></li>
+                            </ul>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                            <div class="flex items-center mb-3">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-700 mr-3">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <h4 class="font-semibold">Videos</h4>
+                            </div>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li><a href="#" class="hover:text-green-700 hover:underline">The Life of Prophet Muhammad</a></li>
+                                <li><a href="#" class="hover:text-green-700 hover:underline">Stories of the Companions</a></li>
+                                <li><a href="#" class="hover:text-green-700 hover:underline">Islamic History Series</a></li>
+                            </ul>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
+                            <div class="flex items-center mb-3">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center text-green-700 mr-3">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                                <h4 class="font-semibold">FAQs</h4>
+                            </div>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li><a href="#" class="hover:text-green-700 hover:underline">Can I pray in English?</a></li>
+                                <li><a href="#" class="hover:text-green-700 hover:underline">What breaks my wudu?</a></li>
+                                <li><a href="#" class="hover:text-green-700 hover:underline">How to deal with family?</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <!-- Contact Section -->
+<section id="contact" class="mb-16">
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="md:flex">
+            <div class="md:w-1/2 p-8 bg-green-50">
+                <!-- Your contact info column (keep as-is) -->
+            </div>
+            
+            <div class="md:w-1/2 p-8">
+                <h3 class="text-2xl font-semibold text-green-800 mb-4">Send a Message</h3>
+                
+                <!-- MODIFIED FORM STARTS HERE -->
+                <form id="contact-form" 
+                      action="mailto:hiiamnadal@gmail.com" 
+                      method="post" 
+                      enctype="text/plain" 
+                      class="space-y-4">
+                      
+                    <div>
+                        <label for="name" class="block text-gray-700 mb-1">Your Name</label>
+                        <input type="text" id="name" name="name" class="w-full px-4 py-2 border...">
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block text-gray-700 mb-1">Email Address</label>
+                        <input type="email" id="email" name="email" class="w-full px-4 py-2 border...">
+                    </div>
+                    
+                    <div>
+                        <label for="subject" class="block text-gray-700 mb-1">Subject</label>
+                        <select id="subject" name="subject" class="w-full px-4 py-2 border...">
+                            <option value="question">Question about Islam</option>
+                            <!-- Other options -->
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="message" class="block text-gray-700 mb-1">Your Message</label>
+                        <textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3...">
+                        Send Message <i class="fas fa-paper-plane ml-2"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Revert Muslims Guide</h3>
+                    <p class="text-gray-400">Your comprehensive guide to learning Islam as a new Muslim. Providing authentic Islamic knowledge and practical guidance.</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="#salah" class="text-gray-400 hover:text-white transition">Learn Salah</a></li>
+                        <li><a href="#quran" class="text-gray-400 hover:text-white transition">Quran</a></li>
+                        <li><a href="#hadith-verse" class="text-gray-400 hover:text-white transition">Daily Wisdom</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Resources</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Islamic Books</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Lectures</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Dua Collection</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Mosque Finder</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Newsletter</h3>
+                    <p class="text-gray-400 mb-4">Subscribe to get daily Islamic reminders and updates.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg w-full text-gray-800">
+                        <button type="submit" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-r-lg">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2023 Revert Muslims Guide. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 w-12 h-12 bg-green-600 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-green-700 transition hidden">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Add Leaflet JS for map functionality -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Current Time Display
+        function updateCurrentTime() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            document.getElementById('current-time').textContent = now.toLocaleDateString('en-US', options);
+        }
+        setInterval(updateCurrentTime, 1000);
+        updateCurrentTime();
+
+        // Theme Toggle
+        document.getElementById('theme-toggle').addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark');
+            const icon = this.querySelector('i');
+            if (document.documentElement.classList.contains('dark')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                document.body.classList.add('bg-gray-900');
+                document.body.classList.remove('bg-gray-50');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                document.body.classList.remove('bg-gray-900');
+                document.body.classList.add('bg-gray-50');
+            }
+        });
+
+        // Smooth Scrolling for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('hidden');
+            } else {
+                backToTopButton.classList.add('hidden');
+            }
+        });
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // During Salah Guide
+        const salahSteps = [
+            {
+                title: "Takbiratul Ihram",
+                arabic: "الله أكبر",
+                transliteration: "Allahu Akbar",
+                translation: "Allah is the Greatest",
+                content: "Raise your hands up to your ears or shoulders and say 'Allahu Akbar' (Allah is the Greatest) to begin your prayer.",
+                reference: '"When the Prophet (PBUH) started the prayer, he used to say \'Allahu Akbar\' and then raise his hands." (Sahih Bukhari)'
+            },
+            {
+                title: "Sana (Opening Dua)",
+                arabic: "سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ وَتَبَارَكَ اسْمُكَ وَتَعَالَى جَدُّكَ وَلاَ إِلَهَ غَيْرُكَ",
+                transliteration: "Subhanaka Allahumma wa bihamdika, wa tabarakasmuka, wa ta'ala jadduka, wa la ilaha ghairuk",
+                translation: "Glory to You, O Allah, and praise. Blessed is Your name and exalted is Your majesty. There is no god but You.",
+                content: "Recite this dua silently after the opening takbir.",
+                reference: '"The Prophet (PBUH) used to say this dua after the opening takbir." (Abu Dawud)'
+            },
+            {
+                title: "Surah Al-Fatiha",
+                arabic: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ الرَّحْمَٰنِ الرَّحِيمِ مَالِكِ يَوْمِ الدِّينِ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
+                transliteration: "Bismillahir Rahmanir Rahim. Alhamdu lillahi Rabbil 'alamin...",
+                translation: "In the name of Allah, the Most Gracious, the Most Merciful...",
+                content: "Recite Surah Al-Fatiha in every rak'ah of the prayer.",
+                reference: '"There is no prayer for the one who does not recite the Opening of the Book (Al-Fatiha)." (Bukhari)'
+            },
+            {
+                title: "Ruku (Bowing)",
+                arabic: "سُبْحَانَ رَبِّيَ الْعَظِيمِ",
+                transliteration: "Subhana Rabbiyal Adheem",
+                translation: "Glory to my Lord the Almighty",
+                content: "Bow with your back straight, hands on knees, and say this tasbeeh at least 3 times.",
+                reference: '"The Prophet (PBUH) would say in his bowing and prostration: \'Subhana Rabbiyal Adheem\' and \'Subhana Rabbiyal A\'la\'." (Muslim)'
+            },
+            {
+                title: "Sujud (Prostration)",
+                arabic: "سُبْحَانَ رَبِّيَ الْأَعْلَى",
+                transliteration: "Subhana Rabbiyal A'la",
+                translation: "Glory to my Lord the Most High",
+                content: "Prostrate with forehead, nose, palms, knees and toes touching the ground. Say this tasbeeh at least 3 times.",
+                reference: '"The closest a servant is to his Lord is when he is in prostration." (Muslim)'
+            },
+            {
+                title: "Tashahhud",
+                arabic: "التَّحِيَّاتُ لِلَّهِ وَالصَّلَوَاتُ وَالطَّيِّبَاتُ، السَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ، السَّلَامُ عَلَيْنَا وَعَلَى عِبَادِ اللَّهِ الصَّالِحِينَ، أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ",
+                transliteration: "At-tahiyyatu lillahi was-salawatu wat-tayyibat...",
+                translation: "All greetings, prayers and pure words are due to Allah...",
+                content: "Sit and recite this testimony of faith in the final sitting of the prayer.",
+                reference: '"The Prophet (PBUH) taught us the tashahhud just as he taught us the Quran." (Muslim)'
+            },
+            {
+                title: "Tasleem (Ending the Prayer)",
+                arabic: "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ",
+                transliteration: "Assalamu alaykum wa rahmatullah",
+                translation: "Peace and mercy of Allah be upon you",
+                content: "Turn your head to the right and left saying this to end the prayer.",
+                reference: '"The key to prayer is purification, its beginning is takbir, and its end is tasleem." (Abu Dawud)'
+            }
+        ];
+
+        let currentStep = 0;
+        const salahGuideContainer = document.getElementById('salah-guide-container');
+        const startSalahBtn = document.getElementById('start-salah');
+        const prevStepBtn = document.getElementById('prev-step');
+        const nextStepBtn = document.getElementById('next-step');
+        const stepTitle = document.getElementById('current-step-title');
+        const stepContent = document.getElementById('current-step-content');
+        const salahProgress = document.getElementById('salah-progress');
+        const salahStepBtns = document.querySelectorAll('.salah-step-btn');
+
+        startSalahBtn.addEventListener('click', function() {
+            salahGuideContainer.classList.remove('hidden');
+            updateSalahStep();
+        });
+
+        function updateSalahStep() {
+            const step = salahSteps[currentStep];
+            stepTitle.textContent = step.title;
+            
+            stepContent.innerHTML = `
+                <div class="arabic-text text-center mb-4 text-3xl font-bold" dir="rtl">
+                    ${step.arabic}
+                </div>
+                <p class="text-center text-xl mb-4">${step.transliteration}</p>
+                <p class="text-center text-lg mb-4 text-gray-600">${step.translation}</p>
+                <p class="text-gray-700 mb-4">${step.content}</p>
+                <div class="bg-gray-100 p-4 rounded-lg">
+                    <p class="text-gray-700 italic">${step.reference}</p>
+                </div>
+            `;
+            
+            // Update progress
+            const progress = ((currentStep + 1) / salahSteps.length) * 100;
+            salahProgress.style.width = `${progress}%`;
+        }
+
+        prevStepBtn.addEventListener('click', function() {
+            if (currentStep > 0) {
+                currentStep--;
+                updateSalahStep();
+            }
+        });
+
+        nextStepBtn.addEventListener('click', function() {
+            if (currentStep < salahSteps.length - 1) {
+                currentStep++;
+                updateSalahStep();
+            }
+        });
+
+        // Step buttons functionality
+        salahStepBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const step = this.dataset.step;
+                // Find the index of the step in salahSteps
+                const stepIndex = salahSteps.findIndex(s => s.title.toLowerCase().includes(step));
+                if (stepIndex !== -1) {
+                    currentStep = stepIndex;
+                    updateSalahStep();
+                }
+            });
+        });
+
+        // Prayer Times Functionality
+        function fetchPrayerTimes(latitude, longitude) {
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+            
+            // Using Aladhan API for prayer times
+            fetch(`https://api.aladhan.com/v1/timings/${day}-${month}-${year}?latitude=${latitude}&longitude=${longitude}&method=2`)
+                .then(response => response.json())
+                .then(data => {
+                    const timings = data.data.timings;
+                    
+                    // Update prayer times display
+                    document.getElementById('fajr-time').textContent = timings.Fajr;
+                    document.getElementById('sunrise-time').textContent = timings.Sunrise;
+                    document.getElementById('dhuhr-time').textContent = timings.Dhuhr;
+                    document.getElementById('asr-time').textContent = timings.Asr;
+                    document.getElementById('maghrib-time').textContent = timings.Maghrib;
+                    document.getElementById('isha-time').textContent = timings.Isha;
+                    
+                    // Update location display
+                    document.getElementById('location-display').textContent = `Based on your location`;
+                    
+                    // Calculate next prayer
+                    calculateNextPrayer(timings);
+                })
+                .catch(error => {
+                    console.error('Error fetching prayer times:', error);
+                    // Fallback to static times if API fails
+                    document.getElementById('fajr-time').textContent = '05:30';
+                    document.getElementById('sunrise-time').textContent = '06:45';
+                    document.getElementById('dhuhr-time').textContent = '12:30';
+                    document.getElementById('asr-time').textContent = '15:45';
+                    document.getElementById('maghrib-time').textContent = '18:30';
+                    document.getElementById('isha-time').textContent = '20:00';
+                    document.getElementById('location-display').textContent = `Default times shown`;
+                    
+                    // Highlight current time-based prayer
+                    highlightCurrentPrayer();
+                });
+        }
+
+        function calculateNextPrayer(timings) {
+            const now = new Date();
+            const currentTime = now.getHours() * 60 + now.getMinutes();
+            
+            const prayerTimes = [
+                { name: 'Fajr', time: timings.Fajr },
+                { name: 'Sunrise', time: timings.Sunrise },
+                { name: 'Dhuhr', time: timings.Dhuhr },
+                { name: 'Asr', time: timings.Asr },
+                { name: 'Maghrib', time: timings.Maghrib },
+                { name: 'Isha', time: timings.Isha }
+            ];
+            
+            // Convert prayer times to minutes since midnight
+            prayerTimes.forEach(prayer => {
+                const [hours, minutes] = prayer.time.split(':').map(Number);
+                prayer.minutes = hours * 60 + minutes;
+            });
+            
+            // Find the next prayer
+            let nextPrayer = null;
+            for (let i = 0; i < prayerTimes.length; i++) {
+                if (prayerTimes[i].minutes > currentTime) {
+                    nextPrayer = prayerTimes[i];
+                    break;
+                }
+            }
+            
+            // If no prayer found (it's after Isha), next prayer is tomorrow's Fajr
+            if (!nextPrayer) {
+                nextPrayer = prayerTimes[0];
+                nextPrayer.minutes += 1440; // Add 24 hours
+            }
+            
+            // Calculate time remaining
+            const timeRemaining = nextPrayer.minutes - currentTime;
+            const hoursRemaining = Math.floor(timeRemaining / 60);
+            const minutesRemaining = timeRemaining % 60;
+            
+            // Update next prayer display
+            document.getElementById('next-prayer-name').textContent = nextPrayer.name;
+            document.getElementById('next-prayer-time').textContent = nextPrayer.time;
+            
+            if (hoursRemaining > 0) {
+                document.getElementById('time-remaining').textContent = `${hoursRemaining}h ${minutesRemaining}m`;
+            } else {
+                document.getElementById('time-remaining').textContent = `${minutesRemaining}m`;
+            }
+            
+            // Highlight current prayer time box
+            highlightCurrentPrayer(prayerTimes, currentTime);
+        }
+
+        function highlightCurrentPrayer(prayerTimes, currentTime) {
+            // Remove active class from all prayer times
+            document.querySelectorAll('.prayer-time').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            if (!prayerTimes) {
+                // Fallback: highlight based on current time
+                const hours = new Date().getHours();
+                let activePrayer = 'Isha';
+                
+                if (hours >= 5 && hours < 6) activePrayer = 'Fajr';
+                else if (hours >= 12 && hours < 15) activePrayer = 'Dhuhr';
+                else if (hours >= 15 && hours < 18) activePrayer = 'Asr';
+                else if (hours >= 18 && hours < 20) activePrayer = 'Maghrib';
+                
+                document.getElementById(`${activePrayer.toLowerCase()}-time`).parentElement.classList.add('active');
+                return;
+            }
+            
+            // Find which prayer period we're in
+            let currentPrayer = null;
+            for (let i = prayerTimes.length - 1; i >= 0; i--) {
+                if (currentTime >= prayerTimes[i].minutes) {
+                    currentPrayer = prayerTimes[i].name;
+                    break;
+                }
+            }
+            
+            if (currentPrayer) {
+                document.getElementById(`${currentPrayer.toLowerCase()}-time`).parentElement.classList.add('active');
+            }
+        }
+
+        // Get user location for prayer times
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+                        fetchPrayerTimes(latitude, longitude);
+                        
+                        // Initialize map
+                        initMap(latitude, longitude);
+                    },
+                    error => {
+                        console.error('Error getting location:', error);
+                        // Default to New Delhi coordinates if location access denied
+                        fetchPrayerTimes(28.6139, 77.2090);
+                        initMap(28.6139, 77.2090);
+                    }
+                );
+            } else {
+                console.log("Geolocation is not supported by this browser.");
+                // Default to New Delhi coordinates if geolocation not supported
+                fetchPrayerTimes(28.6139, 77.2090);
+                initMap(28.6139, 77.2090);
+            }
+        }
+
+        // Initialize map for Qibla direction
+        function initMap(latitude, longitude) {
+            const map = L.map('map').setView([latitude, longitude], 13);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            
+            // Add marker for user's location
+            L.marker([latitude, longitude]).addTo(map)
+                .bindPopup('Your location')
+                .openPopup();
+            
+            // Qibla direction button
+            document.getElementById('find-qibla').addEventListener('click', function() {
+                // Calculate Qibla direction (simplified calculation)
+                const kaabaLat = 21.4225;
+                const kaabaLng = 39.8262;
+                
+                const phiK = kaabaLat * Math.PI / 180.0;
+                const lambdaK = kaabaLng * Math.PI / 180.0;
+                const phi = latitude * Math.PI / 180.0;
+                const lambda = longitude * Math.PI / 180.0;
+                
+                const psi = 180.0 / Math.PI * Math.atan2(
+                    Math.sin(lambdaK - lambda),
+                    Math.cos(phi) * Math.tan(phiK) - Math.sin(phi) * Math.cos(lambdaK - lambda)
+                );
+                
+                const qiblaAngle = (psi + 360.0) % 360.0;
+                
+                // Display Qibla direction
+                document.getElementById('qibla-angle').textContent = Math.round(qiblaAngle);
+                document.getElementById('qibla-direction').classList.remove('hidden');
+                
+                // Add Qibla direction line to map
+                const lineLength = 0.5; // degrees
+                const endLat = latitude + lineLength * Math.cos(qiblaAngle * Math.PI / 180);
+                const endLng = longitude + lineLength * Math.sin(qiblaAngle * Math.PI / 180);
+                
+                L.polyline([
+                    [latitude, longitude],
+                    [endLat, endLng]
+                ], {color: 'red'}).addTo(map);
+            });
+        }
+
+        // Refresh prayer times button
+        document.getElementById('refresh-times').addEventListener('click', getLocation);
+
+        // Initialize prayer times on page load
+        getLocation();
+
+        // Quran Audio Player
+        const quranAudio = document.getElementById('quran-audio');
+        const reciterSelector = document.getElementById('reciter-selector');
+        const playRecitationBtn = document.getElementById('play-recitation');
+        const nowPlayingDisplay = document.getElementById('now-playing');
+        const reciterNameDisplay = document.getElementById('reciter-name');
+        const surahSelector = document.getElementById('surah-selector');
+
+        playRecitationBtn.addEventListener('click', function() {
+            const reciter = reciterSelector.value;
+            const surah = surahSelector.value;
+            
+            // Example audio files (would need actual audio files in production)
+            let audioFile = '';
+            if (reciter === 'AbdulBaset') {
+                audioFile = `https://download.quranicaudio.com/quran/abdul_baset_murattal/${surah}.mp3`;
+            } else if (reciter === 'MisharyRashid') {
+                audioFile = `https://download.quranicaudio.com/quran/mishary_rashid_alafasy/${surah}.mp3`;
+            } else if (reciter === 'SaoodShuraim') {
+                audioFile = `https://download.quranicaudio.com/quran/saood_bin_ibraaheem_ash-shuraym/${surah}.mp3`;
+            } else if (reciter === 'MaherAlMuaiqly') {
+                audioFile = `https://download.quranicaudio.com/quran/maher_al_muaiqly/${surah}.mp3`;
+            }
+            
+            quranAudio.src = audioFile;
+            quranAudio.play();
+            
+            // Update display
+            nowPlayingDisplay.textContent = `Now Playing: ${surahSelector.options[surahSelector.selectedIndex].text}`;
+            reciterNameDisplay.textContent = reciterSelector.options[reciterSelector.selectedIndex].text;
+        });
+
+        // Random Ayah button
+        document.getElementById('random-ayah').addEventListener('click', function() {
+            const randomSurah = Math.floor(Math.random() * 114) + 1;
+            surahSelector.value = randomSurah;
+            surahSelector.dispatchEvent(new Event('change'));
+        });
+
+        // New Hadith button
+        document.getElementById('new-hadith').addEventListener('click', function() {
+            // In a real implementation, you would fetch from a hadith API
+            const hadiths = [
+                {
+                    arabic: 'قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم: " مَنْ سَلَكَ طَرِيقًا يَلْتَمِسُ فِيهِ عِلْمًا سَهَّلَ اللَّهُ لَهُ بِهِ طَرِيقًا إِلَى الْجَنَّةِ "',
+                    english: 'The Messenger of Allah (PBUH) said: "Whoever travels a path in search of knowledge, Allah will make easy for him a path to Paradise."',
+                    reference: 'Sahih Muslim'
+                },
+                {
+                    arabic: 'قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم: " لاَ يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ "',
+                    english: 'The Messenger of Allah (PBUH) said: "None of you truly believes until he loves for his brother what he loves for himself."',
+                    reference: 'Sahih Bukhari'
+                },
+                {
+                    arabic: 'قَالَ رَسُولُ اللَّهِ صلى الله عليه وسلم: " الْبَيِّعَانِ بِالْخِيَارِ مَا لَمْ يَتَفَرَّقَا، فَإِنْ صَدَقَا وَبَيَّنَا بُورِكَ لَهُمَا فِي بَيْعِهِمَا، وَإِنْ كَتَمَا وَكَذَبَا مُحِقَتْ بَرَكَةُ بَيْعِهِمَا "',
+                    english: 'The Messenger of Allah (PBUH) said: "The two parties to a transaction have the option [to cancel it] until they part. If they are truthful and disclose [any defects], their transaction will be blessed, but if they lie and conceal [defects], the blessing of their transaction will be erased."',
+                    reference: 'Sahih Bukhari'
+                }
+            ];
+            
+            const randomHadith = hadiths[Math.floor(Math.random() * hadiths.length)];
+            
+            document.querySelector('#daily-hadith .arabic-text').textContent = randomHadith.arabic;
+            document.querySelector('#daily-hadith .text-gray-700 p').innerHTML = `The Messenger of Allah (PBUH) said: <span class="italic">"${randomHadith.english}"</span>`;
+            document.querySelector('#daily-hadith + div > div').textContent = randomHadith.reference;
+        });
+
+        // New Verse button
+        document.getElementById('new-verse').addEventListener('click', function() {
+            // In a real implementation, you would fetch from a Quran API
+            const verses = [
+                {
+                    arabic: 'يَا أَيُّهَا الَّذِينَ آمَنُوا اسْتَعِينُوا بِالصَّبْرِ وَالصَّلَاةِ ۚ إِنَّ اللَّهَ مَعَ الصَّابِرِينَ',
+                    english: 'O you who have believed, seek help through patience and prayer. Indeed, Allah is with the patient.',
+                    reference: 'Surah Al-Baqarah 2:153'
+                },
+                {
+                    arabic: 'وَذَكَرَ اسْمَ رَبِّهِ فَصَلَّىٰ',
+                    english: 'And mentions the name of his Lord and prays.',
+                    reference: 'Surah Al-A\'la 87:15'
+                },
+                {
+                    arabic: 'إِنَّمَا يُوَفَّى الصَّابِرُونَ أَجْرَهُم بِغَيْرِ حِسَابٍ',
+                    english: 'Indeed, the patient will be given their reward without account.',
+                    reference: 'Surah Az-Zumar 39:10'
+                }
+            ];
+            
+            const randomVerse = verses[Math.floor(Math.random() * verses.length)];
+            
+            document.querySelector('#daily-verse .arabic-text').textContent = randomVerse.arabic;
+            document.querySelector('#daily-verse .text-gray-700 p').textContent = randomVerse.english;
+            document.querySelector('#daily-verse + div > div').textContent = randomVerse.reference.split(' ')[1];
+            document.querySelector('#daily-verse + div > div:first-child').textContent = randomVerse.reference;
+        });
+
+        // Contact form submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+        
+    </script>
+</body>
+</html>
